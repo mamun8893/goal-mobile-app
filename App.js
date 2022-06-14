@@ -12,23 +12,43 @@ import GoalItem from "./components/GoalItem";
 
 export default function App() {
   const [courseGoals, setCourseGoals] = useState([]);
+  const [modalIsVisible, setModalIsVisible] = useState(false);
 
   function addGoalHandler(enteredGoalText) {
     setCourseGoals((currentCourseGoals) => [
       ...currentCourseGoals,
       { text: enteredGoalText, id: Math.random().toString() },
     ]);
+    handleCloseModal();
   }
   const handleDelete = (id) => {
     setCourseGoals((courseGoals) =>
       courseGoals.filter((goal) => goal.id !== id)
     );
+  };
+  const handleAddModal = () => {
+    setModalIsVisible(true);
+  };
 
-    console.log("Delete", id);
+  const handleCloseModal = () => {
+    setModalIsVisible(false);
   };
   return (
     <View style={styles.appContainer}>
-      <GoalInput addGoalHandler={addGoalHandler} />
+      <View style={styles.addGoalBtn}>
+        <Button
+          title="Add New Goal"
+          style={{ color: "#5e0acc" }}
+          onPress={handleAddModal}
+          color="#fff"
+        />
+      </View>
+
+      <GoalInput
+        addGoalHandler={addGoalHandler}
+        modalIsVisible={modalIsVisible}
+        handleCloseModal={handleCloseModal}
+      />
       <View style={styles.goalsContainer}>
         <FlatList
           data={courseGoals}
@@ -54,5 +74,10 @@ const styles = StyleSheet.create({
 
   goalsContainer: {
     flex: 5,
+  },
+  addGoalBtn: {
+    backgroundColor: "#5e0acc",
+    borderRadius: 6,
+    padding: 5,
   },
 });

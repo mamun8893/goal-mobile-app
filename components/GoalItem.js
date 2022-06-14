@@ -3,22 +3,29 @@ import React from "react";
 
 export default function GoalItem({ itemData, handleDelete }) {
   return (
-    <Pressable onPress={() => handleDelete(itemData.item.id)}>
-      <View style={styles.goalItem}>
+    <View style={styles.goalItem}>
+      <Pressable
+        android_ripple={{ color: "#210644" }}
+        onPress={() => handleDelete(itemData.item.id)}
+        style={({ pressed }) => pressed && styles.pressed}
+      >
         <Text style={styles.goalText}>{itemData.item.text}</Text>
-      </View>
-    </Pressable>
+      </Pressable>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   goalItem: {
     margin: 8,
-    padding: 8,
     borderRadius: 6,
     backgroundColor: "#5e0acc",
   },
+  pressed: {
+    opacity: 0.5,
+  },
   goalText: {
     color: "white",
+    padding: 8,
   },
 });
