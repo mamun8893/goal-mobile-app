@@ -1,3 +1,4 @@
+import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -34,34 +35,37 @@ export default function App() {
     setModalIsVisible(false);
   };
   return (
-    <View style={styles.appContainer}>
-      <View style={styles.addGoalBtn}>
-        <Button
-          title="Add New Goal"
-          style={{ color: "#5e0acc" }}
-          onPress={handleAddModal}
-          color="#fff"
-        />
-      </View>
+    <>
+      <StatusBar style="light" />
+      <View style={styles.appContainer}>
+        <View style={styles.addGoalBtn}>
+          <Button
+            title="Add New Goal"
+            style={{ color: "#5e0acc" }}
+            onPress={handleAddModal}
+            color="#fff"
+          />
+        </View>
 
-      <GoalInput
-        addGoalHandler={addGoalHandler}
-        modalIsVisible={modalIsVisible}
-        handleCloseModal={handleCloseModal}
-      />
-      <View style={styles.goalsContainer}>
-        <FlatList
-          data={courseGoals}
-          renderItem={(itemData) => (
-            <GoalItem itemData={itemData} handleDelete={handleDelete} />
-          )}
-          keyExtractor={(item, index) => {
-            return item.id;
-          }}
-          alwaysBounceVertical={false}
+        <GoalInput
+          addGoalHandler={addGoalHandler}
+          modalIsVisible={modalIsVisible}
+          handleCloseModal={handleCloseModal}
         />
+        <View style={styles.goalsContainer}>
+          <FlatList
+            data={courseGoals}
+            renderItem={(itemData) => (
+              <GoalItem itemData={itemData} handleDelete={handleDelete} />
+            )}
+            keyExtractor={(item, index) => {
+              return item.id;
+            }}
+            alwaysBounceVertical={false}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
@@ -79,5 +83,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#5e0acc",
     borderRadius: 6,
     padding: 5,
+    marginBottom: 20,
   },
 });
